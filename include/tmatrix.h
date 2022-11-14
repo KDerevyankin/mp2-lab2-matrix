@@ -31,6 +31,8 @@ public:
     }
     TDynamicVector(T* arr, size_t s) : sz(s)
     {
+      if (sz <= 0 || sz > MAX_VECTOR_SIZE)
+          throw out_of_range("Vector size should be greater than zero");
         assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
         pMem = new T[sz];
         std::copy(arr, arr + sz, pMem);
@@ -75,6 +77,7 @@ public:
     TDynamicVector& operator=(TDynamicVector&& v) noexcept
     {
         sz = 0;
+        delete[] pMem;
         pMem = nullptr;
         swap(*this, v);
         return *this;
@@ -296,6 +299,10 @@ public:
     // матрично-матричные операции
     TDynamicMatrix operator+(const TDynamicMatrix& m)
     {
+        if (sz != m.sz)
+        {
+            throw "Index should be correct";
+        }
         TDynamicMatrix tmp(sz);
         for (size_t i = 0; i < sz; i++)
         {
@@ -305,6 +312,10 @@ public:
     }
     TDynamicMatrix operator-(const TDynamicMatrix& m)
     {
+        if (sz != m.sz)
+        {
+            throw "Index should be correct";
+        }
         TDynamicMatrix tmp(sz);
         for (size_t i = 0; i < sz; i++)
         {
