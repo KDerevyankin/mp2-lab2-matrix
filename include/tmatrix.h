@@ -58,20 +58,14 @@ public:
     }
     TDynamicVector& operator=(const TDynamicVector& v)
     {
-        if (*this == v)
+        if (this == &v)
         {
             return *this;
         }
-        if (pMem != nullptr)
-        {
-            delete[] pMem;
-        }
         sz = v.sz;
+        delete[] pMem;
         pMem = new T[sz];
-        for (int i = 0; i < sz; i++)
-        {
-            pMem[i] = v.pMem[i];
-        }
+        std::copy(v.pMem, v.pMem + sz, pMem);
         return *this;
     }
     TDynamicVector& operator=(TDynamicVector&& v) noexcept
