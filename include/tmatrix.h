@@ -288,6 +288,10 @@ public:
     // матрично-векторные операции
     TDynamicVector<T> operator*(const TDynamicVector<T>& v)
     {
+        if (sz != v.size())
+        {
+            throw "Index should be correct";
+        }
         TDynamicVector<T> tmp(sz);
         for (size_t i = 0; i < sz; i++)
         {
