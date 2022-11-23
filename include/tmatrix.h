@@ -366,3 +366,5 @@ public:
         return ostr;
     }
 };
+
+#endif
